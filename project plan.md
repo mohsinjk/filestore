@@ -1,5 +1,7 @@
 Plan according existing backend. 
-Add new functionality in existing backend solution structure.
+Follow existing backend solution structure for new functionality.
+
 Use Google Cloud FireStore as Database.
+
 Use Google Cloud Storage for files.
 
