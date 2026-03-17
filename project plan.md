@@ -1,0 +1,4 @@
+Plan according existing backend. 
+Add new functionality in existing backend solution structure.
+Use Google Cloud FireStore and Cloud Storage.
+

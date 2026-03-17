@@ -1,0 +1,84 @@
+feature-based/
+├── public/
+│   └── vite.svg
+│
+├── src/
+│   ├── app/
+│   │   ├── App.tsx                      # Root component with router
+│   │   ├── App.css
+│   │   └── router.tsx                   # Route definitions
+│   │
+│   ├── features/
+│   │   └── products/                    # Product feature module
+│   │       ├── components/
+│   │       │   ├── ProductList.tsx      # List all products
+│   │       │   ├── ProductCard.tsx      # Product item display
+│   │       │   ├── ProductDetail.tsx    # Single product view
+│   │       │   ├── ProductForm.tsx      # Create/Edit form
+│   │       │   └── ProductDeleteDialog.tsx
+│   │       │
+│   │       ├── hooks/
+│   │       │   ├── useProducts.ts       # Fetch all products
+│   │       │   ├── useProduct.ts        # Fetch single product
+│   │       │   ├── useCreateProduct.ts  # Create mutation
+│   │       │   ├── useUpdateProduct.ts  # Update mutation
+│   │       │   └── useDeleteProduct.ts  # Delete mutation
+│   │       │
+│   │       ├── services/
+│   │       │   └── productsApi.ts       # API calls for products
+│   │       │
+│   │       ├── types/
+│   │       │   └── product.types.ts     # ProductDto, CreateProductDto, etc.
+│   │       │
+│   │       ├── utils/
+│   │       │   └── productValidation.ts # Form validation schemas
+│   │       │
+│   │       └── index.ts                 # Public exports from feature
+│   │
+│   ├── shared/
+│   │   ├── api/
+│   │   │   ├── client.ts                # Axios/Fetch base configuration
+│   │   │   ├── config.ts                # API base URL, endpoints
+│   │   │   └── types.ts                 # ProblemDetails, common types
+│   │   │
+│   │   ├── components/
+│   │   │   ├── ui/
+│   │   │   │   ├── Button.tsx
+│   │   │   │   ├── Input.tsx
+│   │   │   │   ├── Card.tsx
+│   │   │   │   ├── Modal.tsx
+│   │   │   │   └── Spinner.tsx
+│   │   │   │
+│   │   │   ├── ErrorBoundary.tsx
+│   │   │   ├── ErrorMessage.tsx
+│   │   │   └── LoadingState.tsx
+│   │   │
+│   │   ├── hooks/
+│   │   │   ├── useToast.ts
+│   │   │   └── useDebounce.ts
+│   │   │
+│   │   └── utils/
+│   │       ├── formatters.ts            # Date, currency formatting
+│   │       └── validators.ts            # Reusable validation helpers
+│   │
+│   ├── layouts/
+│   │   ├── MainLayout.tsx               # App shell with nav/header
+│   │   └── EmptyLayout.tsx              # Minimal layout
+│   │
+│   ├── pages/
+│   │   ├── ProductsPage.tsx             # /products - list view
+│   │   ├── ProductDetailPage.tsx        # /products/:id
+│   │   ├── ProductCreatePage.tsx        # /products/new
+│   │   ├── ProductEditPage.tsx          # /products/:id/edit
+│   │   └── NotFoundPage.tsx             # 404
+│   │
+│   ├── main.tsx                         # Entry point
+│   ├── index.css                        # Global styles
+│   └── vite-env.d.ts                    # TypeScript declarations
+│
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── eslint.config.js
+└── README.md
