@@ -4,6 +4,7 @@ import { ProductsPage } from '@/pages/ProductsPage';
 import { ProductDetailPage } from '@/pages/ProductDetailPage';
 import { ProductCreatePage } from '@/pages/ProductCreatePage';
 import { ProductEditPage } from '@/pages/ProductEditPage';
+import { FilesPage } from '@/pages/FilesPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
                         element: <ProductEditPage />,
                     },
                 ],
+            },
+            {
+                path: 'files',
+                element: <FilesPage />,
             },
             {
                 path: '*',
