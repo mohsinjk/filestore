@@ -1,7 +1,10 @@
 Add new File Storage Endpoint on existing backend solution. 
 
-Different banking systems would like to use this capability to store and retrieve files. Files can be linked with a Case or a Custumer. 
+This functionality will be use by Financing Department. 
+Multiple product and systems need to store and retrieve files.
+Each file must have life cycle.
+Files are related to a existing Case idenfier.
+Files are related to a existing Customer idenfier.
+File are store in some category.
 
 NO authentication required for this phase.
-
-Use existing backend solution structure.
