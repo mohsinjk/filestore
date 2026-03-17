@@ -54,6 +54,7 @@ A Financing Department user or a consumer system queries all files associated wi
 2. **Given** a filter by Customer ID is applied, **When** a consumer queries, **Then** only files belonging to that customer are returned.
 3. **Given** both Case ID and Category filters are applied, **When** a consumer queries, **Then** only files matching both criteria are returned.
 4. **Given** no files match the query criteria, **When** a consumer queries, **Then** the system returns an empty list (not an error).
+5. **Given** files exist in `Archived` status for a Case ID, **When** a consumer queries without the `includeArchived=true` flag, **Then** archived files are excluded from the result (only `Active` files are returned by default).
 
 ---
 
@@ -63,7 +64,7 @@ A consumer system or authorised internal process transitions a file from one lif
 
 **Why this priority**: Lifecycle management is required by the feature definition but depends on storage and retrieval being in place first. It represents the compliance and housekeeping layer of the feature.
 
-**Independent Test**: [NEEDS CLARIFICATION: What triggers lifecycle transitions — manual API calls from consumers, automated time-based rules, or external system events? This determines whether an independent test is a simple API call or requires a more complex workflow setup.]
+**Independent Test**: Can be fully tested by uploading a file (Story 1), then calling `PATCH /api/files/{id}/status` with `{"status":"Archived"}` and verifying `200 OK` with `status: "Archived"` and updated `statusChangedAt`; then `PATCH` with `{"status":"Deleted"}` and verifying subsequent `GET /api/files/{id}/metadata` returns `404 Not Found`.
 
 **Acceptance Scenarios**:
 
@@ -97,16 +98,16 @@ A consumer system or authorised internal process transitions a file from one lif
 - **FR-010**: System MUST paginate list results when the number of matching files exceeds a defined page size.
 - **FR-011**: System MUST support updating the lifecycle status of a file from `Active` to `Archived` or `Deleted`.
 - **FR-012**: System MUST enforce lifecycle transition rules: only permitted state transitions are accepted; invalid transitions are rejected with an informative error.
-- **FR-013**: System MUST implement soft deletion: files marked `Deleted` are retained in storage but excluded from standard retrieval and list operations.
+- **FR-013**: System MUST implement soft deletion: files marked `Deleted` are retained in binary storage but excluded from all standard retrieval and list operations. Files marked `Archived` are also excluded from default list results unless the caller explicitly requests them via an opt-in flag (`includeArchived=true`).
 - **FR-014**: System MUST record the timestamp of each lifecycle status change.
 - **FR-015**: System MUST be accessible to multiple consumer systems via the existing backend API without requiring authentication in this phase.
-- **FR-016**: File categories MUST be [NEEDS CLARIFICATION: Are categories a fixed predefined list (e.g., Invoice, Contract, Statement, Receipt, Agreement) or must the system support dynamic management of categories (create/edit/delete categories at runtime)? The two options have significantly different scope implications.]
+- **FR-016**: File categories MUST be one of a fixed predefined set: `Invoice`, `Contract`, `Statement`, `Receipt`, `Agreement`. Dynamic management of categories is out of scope for this phase.
 
 ### Key Entities
 
-- **File**: Unique identifier, original file name, binary content, file size, MIME type, upload timestamp, Case ID (reference), Customer ID (reference), Category, lifecycle status, status-change timestamp. Represents a stored document in the system.
-- **FileCategory**: Identifier and display name representing the classification of a file (e.g., Invoice, Contract, Statement). Defines the valid categories a file can be assigned to.
-- **FileLifecycleStatus**: Enumerated states representing the current stage of a file: `Active` (in use, fully accessible), `Archived` (retained for records, not in active use), `Deleted` (soft-deleted, excluded from normal access).
+- **FileRecord**: Unique identifier, original file name, binary content, file size, MIME type, upload timestamp, Case ID (reference), Customer ID (reference), Category, lifecycle status, status-change timestamp. Represents a stored document in the system.
+- **FileCategory**: Fixed enumeration representing the classification of a file: `Invoice`, `Contract`, `Statement`, `Receipt`, `Agreement`.
+- **FileLifecycleStatus**: Enumerated states representing the current stage of a file: `Active` (in use, fully accessible), `Archived` (retained for records, excluded from default listings), `Deleted` (soft-deleted, excluded from all access).
 
 ## Success Criteria *(mandatory)*
 
