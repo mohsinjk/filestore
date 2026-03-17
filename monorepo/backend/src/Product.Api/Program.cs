@@ -1,3 +1,9 @@
+using FileStorage.Application.Interfaces;
+using FileStorage.Application.Services;
+using FileStorage.Domain.Interfaces;
+using FileStorage.Infrastructure.Configuration;
+using FileStorage.Infrastructure.Repositories;
+using FileStorage.Infrastructure.Storage;
 using Product.Application.Interfaces;
 using Product.Application.Services;
 using Product.Domain.Interfaces;
@@ -26,6 +32,17 @@ builder.Services.AddSwaggerGen(c =>
 // Register dependencies
 builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
+// FileStorage: configuration
+builder.Services.Configure<FirestoreOptions>(
+    builder.Configuration.GetSection("FileStorage:Firestore"));
+builder.Services.Configure<GcsOptions>(
+    builder.Configuration.GetSection("FileStorage:Gcs"));
+
+// FileStorage: infrastructure
+builder.Services.AddScoped<IFileRepository, FirestoreFileRepository>();
+builder.Services.AddScoped<IFileStorageService, GcsFileStorageService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 // Add CORS
 builder.Services.AddCors(options =>

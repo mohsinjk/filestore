@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain — **2 markers outstanding** (see notes)
+- [x] No [NEEDS CLARIFICATION] markers remain — resolved via research.md (CL-01: manual PATCH, CL-02: fixed enum)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)

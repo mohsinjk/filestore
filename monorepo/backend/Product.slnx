@@ -4,4 +4,7 @@
   <Project Path="src/Product.Application/Product.Application.csproj" />
   <Project Path="src/Product.Infrastructure/Product.Infrastructure.csproj" />
   <Project Path="src/Product.Api/Product.Api.csproj" />
+  <Project Path="src/FileStorage.Domain/FileStorage.Domain.csproj" />
+  <Project Path="src/FileStorage.Application/FileStorage.Application.csproj" />
+  <Project Path="src/FileStorage.Infrastructure/FileStorage.Infrastructure.csproj" />
 </Solution>
