@@ -59,20 +59,17 @@ public sealed class FirestoreFileRepository : IFileRepository
         if (category.HasValue)
             query = query.WhereEqualTo("category", category.Value.ToString());
 
-        // Always exclude Deleted
-        query = query.WhereNotEqualTo("status", FileLifecycleStatus.Deleted.ToString());
+        // Use WhereIn to include only the desired statuses — avoids WhereNotEqualTo
+        // inequality semantics which require special composite indexes.
+        var allowedStatuses = includeArchived
+            ? new List<object> { FileLifecycleStatus.Active.ToString(), FileLifecycleStatus.Archived.ToString() }
+            : new List<object> { FileLifecycleStatus.Active.ToString() };
+        query = query.WhereIn("status", allowedStatuses);
 
         var allSnapshot = await query.GetSnapshotAsync(cancellationToken);
 
-        // Filter Archived in-memory when not requested
-        // (Firestore does not support OR-style status filters without an extra index)
-        var filtered = includeArchived
-            ? allSnapshot.Documents
-            : allSnapshot.Documents.Where(d =>
-                d.GetValue<string>("status") != FileLifecycleStatus.Archived.ToString()).ToList();
-
-        var totalCount = filtered.Count();
-        var items = filtered
+        var totalCount = allSnapshot.Count;
+        var items = allSnapshot.Documents
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(FromSnapshot)
