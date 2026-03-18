@@ -4,10 +4,6 @@ using FileStorage.Domain.Interfaces;
 using FileStorage.Infrastructure.Configuration;
 using FileStorage.Infrastructure.Repositories;
 using FileStorage.Infrastructure.Storage;
-using Product.Application.Interfaces;
-using Product.Application.Services;
-using Product.Domain.Interfaces;
-using Product.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,10 +24,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "A REST API for managing products using Clean Architecture"
     });
 });
-
-// Register dependencies
-builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
 
 // FileStorage: configuration
 builder.Services.Configure<FirestoreOptions>(
