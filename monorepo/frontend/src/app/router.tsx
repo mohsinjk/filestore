@@ -5,6 +5,7 @@ import { ProductDetailPage } from '@/pages/ProductDetailPage';
 import { ProductCreatePage } from '@/pages/ProductCreatePage';
 import { ProductEditPage } from '@/pages/ProductEditPage';
 import { FilesPage } from '@/pages/FilesPage';
+import { SearchFilesPage } from '@/pages/SearchFilesPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
             {
                 path: 'files',
                 element: <FilesPage />,
+            },
+            {
+                path: 'files/search',
+                element: <SearchFilesPage />,
             },
             {
                 path: '*',

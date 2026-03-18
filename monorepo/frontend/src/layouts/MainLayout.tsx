@@ -1,5 +1,5 @@
 import { Link, Outlet, NavLink } from 'react-router-dom';
-import { Package, FolderOpen } from 'lucide-react';
+import { Package, FolderOpen, Search } from 'lucide-react';
 
 export const MainLayout = () => {
     return (
@@ -28,6 +28,7 @@ export const MainLayout = () => {
                             </NavLink>
                             <NavLink
                                 to="/files"
+                                end
                                 className={({ isActive }) =>
                                     `flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${isActive
                                         ? 'bg-primary text-primary-foreground'
@@ -36,7 +37,19 @@ export const MainLayout = () => {
                                 }
                             >
                                 <FolderOpen className="h-4 w-4" />
-                                Files
+                                Upload Files
+                            </NavLink>
+                            <NavLink
+                                to="/files/search"
+                                className={({ isActive }) =>
+                                    `flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${isActive
+                                        ? 'bg-primary text-primary-foreground'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                    }`
+                                }
+                            >
+                                <Search className="h-4 w-4" />
+                                Search Files
                             </NavLink>
                         </nav>
                     </div>
