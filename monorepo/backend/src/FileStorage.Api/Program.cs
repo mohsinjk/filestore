@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
     {
-        Title = "Product API",
+        Title = "File Storage API",
         Version = "v1",
         Description = "A REST API for managing products using Clean Architecture"
     });

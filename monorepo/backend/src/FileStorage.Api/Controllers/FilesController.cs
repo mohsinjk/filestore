@@ -2,7 +2,7 @@ using FileStorage.Application.DTOs;
 using FileStorage.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Product.Api.Controllers;
+namespace FileStorage.Api.Controllers;
 
 /// <summary>
 /// Manages file storage for the Financing Department.
